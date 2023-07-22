@@ -1,0 +1,90 @@
+import 'package:flutter/material.dart';
+import 'page2.dart';
+import 'page3.dart';
+
+void main() => runApp(App1201());
+
+class App1201 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) => MaterialApp(home: HomePage());
+}
+
+class HomePage extends StatelessWidget {
+  @override
+  Widget _buildButtonColumn(Color color, IconData icon, String label) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(icon, color: color),
+        Container(
+          margin: const EdgeInsets.only(top: 8),
+          child: Text(
+            label,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w400,
+              color: color,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(title: Text('Navigation')),
+        body: Center(
+          child: Column(children: [
+            SizedBox(height: 30),
+            Text('Home Page', textScaleFactor: 2.0),
+            Image.network(
+              'https://th.bing.com/th/id/R.5448654a3d35fec37150416919820f33?rik=hQ04ALuczSXquQ&pid=ImgRaw&r=0',
+              width: 100,
+              height: 100,
+              fit: BoxFit.cover,
+            ),
+
+            SizedBox(height: 60),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _buildButtonColumn(Colors.blue, Icons.call, 'CALL'),
+                _buildButtonColumn(Colors.green, Icons.share, 'SHARE'),
+                _buildButtonColumn(Colors.orange, Icons.home, 'HOME'),
+              ],
+            ),
+            SizedBox(
+                height:
+                    20), // เพิ่มช่องว่างระหว่างข้อความ Home Page กับข้อความแนะนำตัว
+            Text(
+              'สวัสดีครับ! ผมชื่อ [ชื่อของคุณ]'
+              'นายวราเทพ คนนี้เป็นคนที่หล่อรวยแถวยังใจบุญ '
+              'มีความสัมพันธ์กับคนอื่นที่ดี และเพื่อนๆที่ดี '
+              'มีแฟนที่น่ารักและความสัมพันธ์ที่ดี และรักกันอย่างมั่นคง '
+              'เป็นคนที่เก่ง ในหลายๆด้าน กีฬา,เรียน,ความมั่นคง,สุขภาพ '
+              'ขอบคุณ   ขอบคุณ   ขอบคุณ ',
+              style: TextStyle(fontSize: 18),
+            ),
+            SizedBox(height: 60),
+            btnPage2(context),
+            btnPage3(context),
+          ]),
+        ),
+      );
+
+  Widget btnPage2(BuildContext ctx) => TextButton(
+        child: Text('Go to Page 2 >>', textScaleFactor: 1.5),
+        onPressed: () =>
+            Navigator.push(ctx, MaterialPageRoute(builder: (ctx) => Page2()))
+                .then((value) {
+          print('Back from Page2 to Page1');
+        }),
+      );
+
+  Widget btnPage3(BuildContext ctx) => TextButton(
+      child: Text('Go to Page 3 >>', textScaleFactor: 1.5),
+      onPressed: () =>
+          Navigator.push(ctx, MaterialPageRoute(builder: (ctx) => Page3()))
+              .then((_) => print('Back from Page3 to Page1')));
+}
